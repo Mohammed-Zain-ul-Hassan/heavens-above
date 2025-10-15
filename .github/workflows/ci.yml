@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '18.x'
-          cache: 'npm'
+          cache: 'npm' # this would only work if the package-lock.json is present
 
       - name: Install Dependencies
         run: npm install
@@ -56,7 +56,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
+          cache: 'npm' # this would only work if the package-lock.json is present
 
       - name: Install Dependencies
         run: npm install
