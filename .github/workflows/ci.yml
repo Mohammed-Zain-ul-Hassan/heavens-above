@@ -1,0 +1,66 @@
+name: Comprehensive CI Pipeline
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+
+jobs:
+  # Job 1: Focus on security scanning
+  security:
+    name: Security Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18.x'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Audit for High-Severity Vulnerabilities
+        run: npm audit --audit-level=high
+
+      # more than just linting with CodeQL
+      - name: Initialize CodeQL for Code Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+  # Job 2: Check compatibility across different Node.js versions
+  compatibility:
+    name: Compatibility Check (Node ${{ matrix.node-version }})
+    runs-on: ubuntu-latest
+    needs: security
+
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: [18.x, 20.x]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      # Testing with smoke test because no other kind of testing is done
+      - name: Run Smoke Test with Timeout
+        run: timeout 30s npm start
