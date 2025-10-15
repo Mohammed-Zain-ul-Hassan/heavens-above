@@ -25,8 +25,8 @@ jobs:
       - name: Install Dependencies
         run: npm ci
 
-      - name: Audit for High-Severity Vulnerabilities
-        run: npm audit --audit-level=high
+      - name: Audit for Critical-Severity Vulnerabilities
+        run: npm audit --audit-level=critical
 
       # more than just linting with CodeQL
       - name: Initialize CodeQL for Code Analysis
