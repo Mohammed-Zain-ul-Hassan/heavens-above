@@ -23,7 +23,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
       - name: Audit for High-Severity Vulnerabilities
         run: npm audit --audit-level=high
@@ -59,7 +59,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
       # Testing with smoke test because no other kind of testing is done
       - name: Run Smoke Test with Timeout
