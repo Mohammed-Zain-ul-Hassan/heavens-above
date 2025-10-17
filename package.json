@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "axios": "^1.7.7",
-    "cheerio": "^1.0.0-rc.3"
+    "cheerio": "1.0.0-rc.12"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,6 @@
   },
   "homepage": "https://github.com/PKUPI/heavens-above#readme",
   "engines": {
-    "node": ">=12.10.0"
+    "node": ">=18.0.0"
   }
 }
