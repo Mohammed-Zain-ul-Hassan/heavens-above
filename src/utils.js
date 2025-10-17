@@ -10,7 +10,7 @@ function post_options(target, opt) {
 		url: `https://www.heavens-above.com/${target}lat=39.9042&lng=116.4074&loc=%E5%8C%97%E4%BA%AC%E5%B8%82&alt=52&tz=ChST`,
 		method: "POST",
 		json: true,
-		body: opt,
+		data: opt,
 		headers: {
 			"Host": "www.heavens-above.com",
 			"Connection": "keep-alive",
@@ -50,6 +50,7 @@ function image_options(target) {
 	return {
 		url: target,
 		method: "GET",
+		responseType: 'stream',
 		headers: {
 			"Host": "www.heavens-above.com",
 			"Connection": "keep-alive",

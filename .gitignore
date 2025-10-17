@@ -85,3 +85,7 @@ dist/
 .DS_Store
 
 public/data
+
+# Cursor
+
+.cursor/
