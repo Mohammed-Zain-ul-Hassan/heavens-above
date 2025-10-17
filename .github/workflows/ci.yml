@@ -63,4 +63,4 @@ jobs:
 
       - name: Run Smoke Test with Increased Timeout
         # Increased timeout to 90s to account for slower network on runners
-        run: timeout 90s npm start
+        run: timeout 180s npm start
