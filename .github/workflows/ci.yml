@@ -56,11 +56,11 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm' # this would only work if the package-lock.json is present
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
-      # Testing with smoke test because no other kind of testing is done
-      - name: Run Smoke Test with Timeout
-        run: timeout 30s npm start
+      - name: Run Smoke Test with Increased Timeout
+        # Increased timeout to 90s to account for slower network on runners
+        run: timeout 90s npm start
