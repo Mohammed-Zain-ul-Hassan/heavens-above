@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x' 
+          node-version: '20.x'
           cache: 'npm'
 
       - name: Install Dependencies
@@ -33,3 +33,6 @@ jobs:
         with:
           app-name: 'mzh-heavens-above-scraper'
           package: '.'
+        env:
+          # This line explicitly tells the action which storage account to use.
+          AzureWebJobsStorage__accountName: mzhheavensabovestorage
