@@ -1,0 +1,17 @@
+{
+  "name": "Function App Deployer",
+  "description": "Allows deploying code to a Function App and managing deployment settings.",
+  "actions": [
+    "Microsoft.Web/sites/read",
+    "Microsoft.Web/sites/write",
+    "Microsoft.Web/sites/sourcecontrols/write",
+    "Microsoft.Web/sites/publish/Action",
+    "Microsoft.Web/sites/functions/listSecrets/action"
+  ],
+  "notActions": [],
+  "dataActions": [],
+  "notDataActions": [],
+  "assignableScopes": [
+    "/subscriptions/5da2a816-2c20-40cf-8b6d-d5d274352c95"
+  ]
+}
