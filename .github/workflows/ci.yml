@@ -23,7 +23,7 @@ jobs:
           cache: 'npm' # this would only work if the package-lock.json is present
 
       - name: Install Dependencies
-        run: npm ci
+        run: npm install
 
       - name: Audit for High-Severity Vulnerabilities
         run: npm audit --audit-level=high
@@ -62,5 +62,5 @@ jobs:
         run: npm install
 
       - name: Run Smoke Test with Increased Timeout
-        # Increased timeout to 90s to account for slower network on runners
-        run: timeout 180s npm start
+        # Increased timeout to 180s to account for slower network on runners
+        run: timeout 180s npm run scrape:local
