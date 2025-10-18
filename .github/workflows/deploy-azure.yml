@@ -34,5 +34,5 @@ jobs:
           app-name: 'mzh-heavens-above-scraper'
           package: '.'
         env:
-          # This line explicitly tells the action which storage account to use.
-          AzureWebJobsStorage__accountName: mzhheavensabovestorage
+          # Reference the storage account name from GitHub Secrets
+          AzureWebJobsStorage__accountName: ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
