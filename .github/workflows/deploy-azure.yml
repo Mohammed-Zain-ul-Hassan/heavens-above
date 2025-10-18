@@ -33,6 +33,3 @@ jobs:
         with:
           app-name: 'mzh-heavens-above-scraper'
           package: '.'
-        env:
-          # Reference the storage account name from GitHub Secrets
-          AzureWebJobsStorage__accountName: ${{ secrets.AZURE_STORAGE_ACCOUNT_NAME }}
