@@ -6,7 +6,12 @@
     "Microsoft.Web/sites/write",
     "Microsoft.Web/sites/sourcecontrols/write",
     "Microsoft.Web/sites/publish/Action",
-    "Microsoft.Web/sites/functions/listSecrets/action"
+    "Microsoft.Web/sites/functions/listSecrets/action",
+    "Microsoft.Web/sites/config/list/action",
+    "Microsoft.Web/sites/basicPublishingCredentialsPolicies/read",
+    "Microsoft.Web/sites/publishxml/action",
+    "Microsoft.Web/sites/config/write",
+    "Microsoft.Web/sites/hostruntime/host/action"
   ],
   "notActions": [],
   "dataActions": [],
