@@ -77,7 +77,7 @@ jobs:
     if: always()
     steps:
       - name: Send Discord Notification
-        uses: tsickert/discord-webhook@v2
+        uses: tsickert/discord-webhook@v7.0.0 # Using the current stable version
         with:
           webhook-url: ${{ secrets.DISCORD_WEBHOOK_URL }}
           # Determine success/failure status
