@@ -64,3 +64,54 @@ jobs:
       - name: Run Smoke Test with Increased Timeout
         # Increased timeout to 180s to account for slower network on runners
         run: timeout 180s npm run scrape:local
+        
+  # Job 3: Dependabot Triage and Auto-Approval Logic (Integrated for Requirement 4)
+  dependabot_triage:
+    name: Dependabot Auto-Triage
+    runs-on: ubuntu-latest
+    # CRITICAL FIX: Depend on all main testing jobs
+    needs: [security, compatibility] 
+    
+    # Security Gate: Only run this job for the trusted dependabot user
+    if: github.actor == 'dependabot[bot]'
+    
+    # Grant temporary write permission only for PR modification tasks (labeling, approving)
+    permissions:
+      pull-requests: write
+      contents: write
+      issues: write
+      
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      # Required to fetch PR metadata and interact with the PR
+      - name: Fetch Dependabot PR Metadata
+        uses: dependabot/fetch-metadata@v2
+        id: metadata
+        
+      - name: Auto-Triage and Review
+        uses: actions/github-script@v7
+        with:
+          script: |
+            // This script dynamically checks for major updates before auto-merging
+            const updateType = '${{ steps.metadata.outputs.update-type }}';
+            const isMajor = updateType.startsWith('version-update:semver-major');
+            
+            if (isMajor) {
+              // Apply label for manual review and skip auto-merge
+              github.rest.issues.addLabels({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                labels: ['review-major-version', 'needs-manual-test']
+              })
+            } else {
+              // Logic for low-risk (minor/patch) updates: Auto-approve and enable merge 
+              github.rest.pulls.createReview({
+                pull_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                event: 'APPROVE'
+              });
+            }
