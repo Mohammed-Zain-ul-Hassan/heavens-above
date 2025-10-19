@@ -1,4 +1,4 @@
-name: 3 - Daily Scraper Execution
+name: Daily Scraper Execution
 
 # Runs daily at 9:30 AM UTC to mitigate high-load execution jitter
 on:
@@ -7,7 +7,7 @@ on:
   # Allows manual testing immediately
   workflow_dispatch:
 
-# The workflow requires access to the SLACK_WEBHOOK secret
+# The workflow requires access to the DISCORD_WEBHOOK_URL secret
 permissions:
   contents: read
 
@@ -51,7 +51,7 @@ jobs:
           
           # 4. Export the captured log content as a multiline output variable
           echo "SCRAPE_LOG<<$DELIMITER" >> $GITHUB_OUTPUT
-          # Use head -n 10 to limit the log snippet for Slack triage
+          # Use head -n 10 to limit the log snippet for Discord triage
           head -n 10 "$LOG_FILE" >> $GITHUB_OUTPUT
           echo "$DELIMITER" >> $GITHUB_OUTPUT
           
