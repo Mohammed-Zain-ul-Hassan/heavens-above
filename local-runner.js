@@ -1,5 +1,21 @@
 // local-runner.js
 
+
+// Polyfill to resolve 'ReferenceError: File is not defined' in older Node environments (e.g., Node 18.x)
+if (typeof global.File === 'undefined') {
+    global.File = class File extends Blob {
+        constructor(parts, filename, properties) {
+            super(parts, properties);
+            this.name = filename;
+        }
+    };
+}
+
+// Global polyfill for Blob, as File extends it and it might also be missing
+if (typeof global.Blob === 'undefined') {
+    global.Blob = class Blob {};
+}
+
 // This script is for local testing. It mimics what the Azure Function does.
 const satellite = require('./src/satellite');
 const iridium = require('./src/iridium');
