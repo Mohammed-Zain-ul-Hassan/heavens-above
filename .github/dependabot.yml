@@ -1,0 +1,38 @@
+version: 2
+updates:
+  # Configuration for the Node.js package ecosystem
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      # Check for new versions once per week
+      interval: "weekly" 
+    
+    # Critical: Ensures package.json version is updated to match the new version, preventing range ambiguity
+    versioning-strategy: "increase" 
+    
+    # Apply labels for easy identification and review filtering
+    labels:
+      - "dependencies"
+      - "safe-merge"
+      
+    # Policy Prerequisite: Group all low-risk updates (minor and patch) into one PR for efficient CI testing
+    groups:
+      safe-updates-rollup:
+        patterns:
+          - "*" # Match all dependencies
+        update-types:
+          - "minor"
+          - "patch"
+          
+    # Isolation Policy: All major updates will automatically be processed as individual PRs (Default Behavior)
+    
+    # Limit the number of concurrently open version update PRs
+    open-pull-requests-limit: 5 
+
+  # Configuration for GitHub Actions dependencies (Infrastructure as Code maintenance)
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    labels:
+      - "github-actions"
