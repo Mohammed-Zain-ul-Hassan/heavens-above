@@ -18,7 +18,7 @@ jobs:
     outputs:
       log_output: ${{ steps.scraper_execution.outputs.SCRAPE_LOG }}
       exit_status: ${{ steps.scraper_execution.outputs.EXIT_CODE }}
-      
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -39,25 +39,25 @@ jobs:
         run: |
           # 1. Temporarily disable 'fail fast' to ensure logging commands execute after failure
           set +e
-          
+
           LOG_FILE="scraper_output.log"
           DELIMITER="EOF_LOG_CAPTURE_XYZ"
-          
+
           # 2. Execute core command. Redirect stdout/stderr (2>&1) to console (tee) and log file
           npm run scrape:local 2>&1 | tee "$LOG_FILE"
-          
+
           # 3. Capture the exit status immediately
           COMMAND_STATUS=$?
-          
+
           # 4. Export the captured log content as a multiline output variable
           echo "SCRAPE_LOG<<$DELIMITER" >> $GITHUB_OUTPUT
           # Use head -n 10 to limit the log snippet for Discord triage
           head -n 10 "$LOG_FILE" >> $GITHUB_OUTPUT
           echo "$DELIMITER" >> $GITHUB_OUTPUT
-          
+
           # 5. Export the exit status separately
           echo "EXIT_CODE=$COMMAND_STATUS" >> $GITHUB_OUTPUT
-          
+
           # 6. Re-exit the step with the original status to fail the job correctly
           exit $COMMAND_STATUS
 
@@ -84,7 +84,7 @@ jobs:
           username: 'GitHub Scraper Bot'
           content: |
             :bell: **Scheduled Scraper Run Complete** :bell:
-            
+
             *Status:* ${{ needs.scrape_job.result }} 
             *Exit Code:* ${{ needs.scrape_job.outputs.exit_status }}
             *Log Snippet (First 10 lines):*

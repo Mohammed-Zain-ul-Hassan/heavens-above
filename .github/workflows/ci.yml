@@ -2,9 +2,9 @@ name: Comprehensive CI Pipeline
 
 on:
   push:
-    branches: [ "main", "master" ]
+    branches: ['main', 'master']
   pull_request:
-    branches: [ "main", "master" ]
+    branches: ['main', 'master']
 
 jobs:
   # Job 1: Focus on security scanning
@@ -64,32 +64,32 @@ jobs:
       - name: Run Smoke Test with Increased Timeout
         # Increased timeout to 180s to account for slower network on runners
         run: timeout 180s npm run scrape:local
-        
+
   # Job 3: Dependabot Triage and Auto-Approval Logic (Integrated for Requirement 4)
   dependabot_triage:
     name: Dependabot Auto-Triage
     runs-on: ubuntu-latest
     # CRITICAL FIX: Depend on all main testing jobs
-    needs: [security, compatibility] 
-    
+    needs: [security, compatibility]
+
     # Security Gate: Only run this job for the trusted dependabot user
     if: github.actor == 'dependabot[bot]'
-    
+
     # Grant temporary write permission only for PR modification tasks (labeling, approving)
     permissions:
       pull-requests: write
       contents: write
       issues: write
-      
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        
+
       # Required to fetch PR metadata and interact with the PR
       - name: Fetch Dependabot PR Metadata
         uses: dependabot/fetch-metadata@v2
         id: metadata
-        
+
       - name: Auto-Triage and Review
         uses: actions/github-script@v7
         with:
@@ -97,7 +97,7 @@ jobs:
             // This script dynamically checks for major updates before auto-merging
             const updateType = '${{ steps.metadata.outputs.update-type }}';
             const isMajor = updateType.startsWith('version-update:semver-major');
-            
+
             if (isMajor) {
               // Apply label for manual review and skip auto-merge
               github.rest.issues.addLabels({

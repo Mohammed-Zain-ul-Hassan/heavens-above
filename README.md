@@ -9,6 +9,7 @@ Scripts for scraping the Heavens Above website. It's based on Node.js. You may n
 ## To Use
 
 To clone and run this repository you'll need [Git](https://git-scm.com) and [Node.js](https://nodejs.org/en/download) (which comes with [npm](http://npmjs.com)) installed on your computer. `Promise.allSettled` requires Node.js 12.10.0 or later. From your command line:
+
 ```bash
 # Clone this repository
 git clone https://github.com/PKUPI/heavens-above.git
@@ -25,8 +26,8 @@ node run.js
 
 ## Credits
 
-* [Mimi](https://zhangshuqiao.org) Developer of this project.  
-* Inspired by https://github.com/chengxinlun/haQuery
+- [Mimi](https://zhangshuqiao.org) Developer of this project.
+- Inspired by https://github.com/chengxinlun/haQuery
 
 ## License
 
