@@ -1,4 +1,4 @@
-name: 6 - Deploy Documentation to Pages
+name: Deploy Documentation to Pages
 
 on:
   push:
@@ -24,20 +24,17 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      # New Step: Convert README.md to index.html
+      # Corrected Step: Convert README.md to index.html
       - name: Convert Markdown to HTML
-        uses: jaywcjlove/markdown-to-html-cli-action@main
+        uses: Mr-Ran-D/markdown-to-html-action@v1
         with:
-          source: README.md
-          output: index.html
-          # Optional: Add some basic styling for better readability
-          style: |
-            body { max-width: 800px; margin: 2rem auto; padding: 1rem; font-family: sans-serif; line-height: 1.6; }
+          input: './README.md'
+          output: './index.html'
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload only the generated index.html
+          # Upload the directory containing the new index.html
           path: '.'
 
   deploy:
