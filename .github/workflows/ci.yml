@@ -62,8 +62,8 @@ jobs:
         run: npm install
 
       - name: Run Smoke Test with Increased Timeout
-        # Increased timeout to 180s to account for slower network on runners
-        run: timeout 180s npm run scrape:local
+        # Increased timeout to 600s to account for slower network on runners
+        run: timeout 600s npm run scrape:local
 
   # Job 3: Dependabot Triage and Auto-Approval Logic (Integrated for Requirement 4)
   dependabot_triage:
