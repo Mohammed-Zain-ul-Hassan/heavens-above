@@ -16,7 +16,5 @@
   "notActions": [],
   "dataActions": [],
   "notDataActions": [],
-  "assignableScopes": [
-    "/subscriptions/5da2a816-2c20-40cf-8b6d-d5d274352c95"
-  ]
+  "assignableScopes": ["/subscriptions/5da2a816-2c20-40cf-8b6d-d5d274352c95"]
 }
