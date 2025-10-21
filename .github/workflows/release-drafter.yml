@@ -1,0 +1,26 @@
+name: Draft a new release
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  update_release_draft:
+    name: Update Release Draft
+    runs-on: ubuntu-latest
+    steps:
+      # Use the official Release Drafter action
+      - uses: release-drafter/release-drafter@v6
+        with:
+          # (Optional) specify a custom configuration file path
+          # config-name: release-drafter.yml
+          # (Optional) a convenient way to check for the latest version of the action
+          # version: v6
+          
+          # The GITHUB_TOKEN is necessary for the action to interact with your repository
+          # It has the required permissions to create and manage releases
+          publish: false # Set to false to only create/update drafts, not publish them
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
