@@ -34,3 +34,4 @@ module.exports = async function (context, myTimer) {
     context.log.error('An error occurred during the scrape:', error.message);
   }
 };
+
