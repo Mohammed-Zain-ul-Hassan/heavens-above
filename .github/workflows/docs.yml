@@ -21,14 +21,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Install the industry-standard Pandoc tool
-      - name: Setup Pandoc
-        uses: pandoc/setup-pandoc@v1
-
-      # Run the Pandoc command to convert README.md to index.html
+      # Using Pandoc Docker Container directly
+      # Most reliable and version-specific
       - name: Convert Markdown to HTML using Pandoc
-        run: |
-          pandoc --standalone --from=markdown --to=html --output=index.html README.md
+        uses: docker://pandoc/core:3.5
+        with:
+          args: >-
+            --standalone
+            --from=markdown
+            --to=html
+            --output=index.html
+            README.md
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
