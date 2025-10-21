@@ -21,20 +21,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
+      # Install the industry-standard Pandoc tool
+      - name: Setup Pandoc
+        uses: pandoc/setup-pandoc@v1
 
-      # Corrected Step: Convert README.md to index.html
-      - name: Convert Markdown to HTML
-        uses: Mr-Ran-D/markdown-to-html-action@v1
-        with:
-          input: './README.md'
-          output: './index.html'
-
+      # Run the Pandoc command to convert README.md to index.html
+      - name: Convert Markdown to HTML using Pandoc
+        run: |
+          pandoc --standalone --from=markdown --to=html --output=index.html README.md
+          
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload the directory containing the new index.html
           path: '.'
 
   deploy:
