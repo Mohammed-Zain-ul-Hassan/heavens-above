@@ -63,7 +63,7 @@ jobs:
 
       - name: Upload Scraper Log Artifact
         if: always() # Run even if the scraper fails
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: daily-scraper-log-${{ github.run_id }}
           path: scraper_output.log
